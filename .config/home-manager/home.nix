@@ -1,25 +1,19 @@
 # nix run github:nix-community/home-manager/master -- switch --flake /home/dev/.config/home-manager#dev && zsh
 
-{ config, pkgs, ... }:
+{ config, pkgs, username, homeDirectory, ... }:
 
-let 
-  username = builtins.getEnv "USER";
-  homedir  = builtins.getEnv "HOME";
-in {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
+{
   home.username = username;
-  home.homeDirectory = homedir;
-
+  home.homeDirectory = homeDirectory;
   home.stateVersion = "25.05";
 
-  home.packages = [
-    neovim-nightly
+  home.packages = with pkgs; [
+    neovim
     ripgrep
   ];
 
   home.file = {
-    ".config/nvim".source = ~/.dotfiles/nvim;
+    ".config/nvim".source = /home/ubuntu/.dotfiles/nvim;
   };
 
   home.sessionVariables = {
