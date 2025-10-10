@@ -36,41 +36,64 @@
 #      };
 #    };
 #}
+#{
+#  description = "Personalized Development Environment with Neovim nightly";
+#
+#  inputs = {
+#    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+#
+#    neovim-nightly-overlay = {
+#      url = "github:nix-community/neovim-nightly-overlay";
+#      inputs.nixpkgs.follows = "nixpkgs";
+#    };
+#
+#    home-manager = {
+#      url = "github:nix-community/home-manager";
+#      inputs.nixpkgs.follows = "nixpkgs";
+#    };
+#  };
+#
+#  outputs = inputs @ { nixpkgs, home-manager, neovim-nightly-overlay, ... }: let
+#    system = "x86_64-linux";
+#    pkgs = import nixpkgs {
+#      inherit system;
+#      overlays = [ neovim-nightly-overlay.overlay ];
+#    };
+#  in {
+#    homeConfigurations = {
+#      ubuntu = home-manager.lib.homeManagerConfiguration {
+#        inherit pkgs;
+#        modules = [ ./home.nix ];
+#
+#        extraSpecialArgs = {
+#          username = "ubuntu";
+#          homeDirectory = "/home/ubuntu";
+#        };
+#      };
+#    };
+#  };
+#}
+
 {
-  description = "Personalized Development Environment with Neovim nightly";
-
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = inputs @ { nixpkgs, home-manager, neovim-nightly-overlay, ... }: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      overlays = [ neovim-nightly-overlay.overlay ];
-    };
-  in {
-    homeConfigurations = {
-      ubuntu = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home.nix ];
-
-        extraSpecialArgs = {
-          username = "ubuntu";
-          homeDirectory = "/home/ubuntu";
+  outputs = { self, ... }@inputs:
+    let
+      overlays = [
+        inputs.neovim-nightly-overlay.overlays.default
+      ];
+    in
+    {
+      homeConfigurations = {
+        ubuntu = inputs.home-manager.lib.homeManagerConfiguration {
+          modules = [
+            {
+              nixpkgs.overlays = overlays;
+            }
+          ];
         };
       };
     };
-  };
 }
-
