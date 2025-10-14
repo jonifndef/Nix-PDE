@@ -1,5 +1,3 @@
-# nix run github:nix-community/home-manager/master -- switch --flake /home/ubuntu/.config/home-manager#ubuntu && zsh
-
 { config, pkgs, homeDirectory, ... }:
 
 {
@@ -12,9 +10,9 @@
     ripgrep
   ];
 
-  #home.file = {
-  #  ".config/nvim".source = .dotfiles/nvim;
-  #};
+  home.file = {
+    ".config/nvim".source = ./.dotfiles/nvim/.config/nvim;
+  };
 
   home.sessionVariables = {
     # EDITOR = "nvim";

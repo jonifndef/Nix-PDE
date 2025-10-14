@@ -20,6 +20,10 @@
         inherit pkgs;
 
         modules = [ ./home.nix ];
+
+        extraSpecialArgs = {
+          homeDirectory = "/home/ubuntu";
+        };
       };
     };
 }
