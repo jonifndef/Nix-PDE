@@ -18,9 +18,14 @@
       overlays = [
         inputs.neovim-nightly-overlay.overlays.default
       ];
+
+      impure = builtins.getEnv "USER" != "";
+
+      username = if impure then builtins.getEnv "USER" else "ubuntu";
+      homeDir = if impure then builtins.getEnv "HOME" else "/home/ubuntu";
     in
     {
-      homeConfigurations."ubuntu" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         modules = [
