@@ -8,7 +8,13 @@
   home.packages = with pkgs; [
     neovim
     ripgrep
+    zsh
+    tmux
+    nodejs_20
   ];
+
+  programs.zsh.enable = true;
+  programs.zsh.initExtra = "";
 
   home.file = {
     ".config/nvim".source = ./.dotfiles/nvim/.config/nvim;
