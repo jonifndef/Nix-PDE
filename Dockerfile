@@ -10,6 +10,7 @@ RUN apt-get -y update && \
     gnupg \
     software-properties-common \
     unzip \
+    vim \
     wget \
     xz-utils
 
@@ -26,7 +27,7 @@ RUN (getent group 1000 || groupadd -g 1000 ubuntu) && \
     mkdir -p /home/ubuntu && \
     chown -R 1000:1000 /home/ubuntu || true
 
-RUN wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz && tar -xzf nvim-linux-x86_64.tar.gz -C /opt/
+#RUN wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz && tar -xzf nvim-linux-x86_64.tar.gz -C /opt/
 
 RUN mkdir /nix && chown ubuntu:ubuntu /nix
 
@@ -38,4 +39,5 @@ RUN curl -L https://nixos.org/nix/install | sh
 
 RUN mkdir -p $HOME/.config && chown ubuntu:ubuntu $HOME/.config
 
-ENV PATH="/home/ubuntu/.nix-profile/bin:/opt/nvim-linux-x86_64/bin:${PATH}"
+#ENV PATH="/home/ubuntu/.nix-profile/bin:/opt/nvim-linux-x86_64/bin:${PATH}"
+ENV PATH="/home/ubuntu/.nix-profile/bin:${PATH}"
