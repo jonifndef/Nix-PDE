@@ -36,7 +36,8 @@
         ];
 
         extraSpecialArgs = {
-          homeDirectory = "/home/ubuntu";
+          username = "${username}";
+          homeDirectory = "${homeDir}";
         };
       };
     };

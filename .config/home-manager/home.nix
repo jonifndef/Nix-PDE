@@ -1,9 +1,9 @@
-{ config, pkgs, homeDirectory, ... }:
+{ config, pkgs, username, homeDirectory, ... }:
 
 {
   home.stateVersion = "25.05";
-  home.username = "ubuntu";
-  home.homeDirectory = /home/ubuntu;
+  home.username = username;
+  home.homeDirectory = homeDirectory;
 
   home.packages = with pkgs; [
     neovim
