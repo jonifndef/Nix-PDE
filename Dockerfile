@@ -7,9 +7,11 @@ RUN apt-get -y update && \
     build-essential \
     ca-certificates \
     curl \
+    git \
     gnupg \
     software-properties-common \
     unzip \
+    stow \
     vim \
     wget \
     xz-utils
@@ -35,9 +37,16 @@ WORKDIR /home/ubuntu
 USER ubuntu
 ENV USER=ubuntu
 
-RUN curl -L https://nixos.org/nix/install | sh
+RUN mkdir -p $HOME/.config/nvim && chown ubuntu:ubuntu $HOME/.config
 
-RUN mkdir -p $HOME/.config && chown ubuntu:ubuntu $HOME/.config
+RUN git clone https://github.com/jonifndef/.dotfiles && \
+    cd .dotfiles/nvim/.config && \
+    stow -t ~/.config/nvim nvim  && \
+    cd ../../ && \
+    stow zsh && \
+    stow tmux
+
+RUN curl -L https://nixos.org/nix/install | sh
 
 #ENV PATH="/home/ubuntu/.nix-profile/bin:/opt/nvim-linux-x86_64/bin:${PATH}"
 ENV PATH="/home/ubuntu/.nix-profile/bin:${PATH}"
