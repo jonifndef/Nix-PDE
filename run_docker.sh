@@ -14,7 +14,7 @@ docker run -it --rm \
   nix_pde_test \
   bash -c '
     set -e
-    #nix run home-manager/master -- switch --flake .config/home-manager#ubuntu
+    nix run home-manager/master -- switch --flake .config/home-manager#ubuntu
 
     #exec zsh
     exec bash
