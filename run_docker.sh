@@ -16,6 +16,6 @@ docker run -it --rm \
     set -e
     nix run home-manager/master -- switch --flake .config/home-manager#ubuntu
 
-    #exec zsh
-    exec bash
+    exec zsh
+    #exec bash
   '

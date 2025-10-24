@@ -41,10 +41,10 @@ RUN mkdir -p $HOME/.config/nvim && chown ubuntu:ubuntu $HOME/.config
 
 RUN git clone https://github.com/jonifndef/.dotfiles && \
     cd .dotfiles/nvim/.config && \
-    stow -t ~/.config/nvim nvim  && \
-    cd ../../ && \
-    stow zsh && \
-    stow tmux
+    stow -t ~/.config/nvim nvim
+    #cd ../../ && \
+    #stow zsh && \
+    #stow tmux
 
 RUN curl -L https://nixos.org/nix/install | sh
 
