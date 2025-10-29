@@ -17,13 +17,15 @@
     enable = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;
+        #initExtra = "";
+        #dotDir = "";
 
-    oh-my-zsh = {
-    enable = true;
-    theme = "garyblessington";
-    plugins = [ "git" ];
+    oh-my-zsh.enable = true;
   };
-};
+
+  home.file = {
+    ".zshrc".source = "${homeDirectory}/.config/home-manager/.dotfiles/zsh/.zshrc";
+  };
 
   home.sessionVariables = {
     SHELL = "${pkgs.zsh}/bin/zsh";
