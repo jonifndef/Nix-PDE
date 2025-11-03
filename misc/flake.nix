@@ -17,6 +17,10 @@
       name = "my-dev-env";
       paths = with pkgs; [
         ripgrep
+        zsh
+        fzf
+        nodejs_20
+        tmux
         neovim
       ];
     };
