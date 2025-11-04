@@ -16,6 +16,7 @@
     in pkgs.buildEnv {
       name = "my-dev-env";
       paths = with pkgs; [
+        curl
         ripgrep
         zsh
         fzf

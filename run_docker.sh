@@ -9,10 +9,9 @@ mkdir -p "${HOST_CONFIG_DIR}"
 
 docker run -it --rm \
   --user 1000:1000 \
-  -v "$HOST_CONFIG_DIR/home-manager:/home/ubuntu/.config/home-manager" \
-  -v "$HOST_CONFIG_DIR/nix:/home/ubuntu/.config/nix" \
   -v "$SCRIPT_DIR/misc:/home/ubuntu/misc" \
-  -v "$HOME/.dotfiles:/home/ubuntu/.config/home-manager/.dotfiles" \
+  -v "$HOST_CONFIG_DIR/nix:/home/ubuntu/.config/nix" \
+  -v "$HOME/.zshrc:/home/ubuntu/.zshrc" \
   nix_pde_test \
   bash -c '
     set -e
