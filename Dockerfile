@@ -39,13 +39,19 @@ ENV USER=ubuntu
 
 RUN mkdir -p $HOME/.config/nvim && chown ubuntu:ubuntu $HOME/.config
 
-#RUN git clone https://github.com/jonifndef/.dotfiles && \
-#    cd .dotfiles/nvim/.config && \
-#    stow -t ~/.config/nvim nvim && \
-#    cd ../../ && \
-#    stow zsh
+RUN git clone https://github.com/jonifndef/.dotfiles && \
+    cd .dotfiles/nvim/.config && \
+    stow -t ~/.config/nvim nvim && \
+    cd ../../ && \
+    stow zsh
 
 RUN curl -L https://nixos.org/nix/install | sh
 
+ENV PATH="/home/ubuntu/.nix-profile/bin:/nix/var/nix/profiles/default/bin:${PATH}"
+
+#RUN nix profile add /home/ubuntu/misc/.#default
+RUN nix --extra-experimental-features "nix-command flakes" profile add /home/ubuntu/misc/.#default
+
+# The flake is not available at build-time, since we mount it at run-time :(
+
 #ENV PATH="/home/ubuntu/.nix-profile/bin:/opt/nvim-linux-x86_64/bin:${PATH}"
-ENV PATH="/home/ubuntu/.nix-profile/bin:${PATH}"
