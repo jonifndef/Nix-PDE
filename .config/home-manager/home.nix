@@ -32,11 +32,23 @@
     # This env variable should be passed when running 'Docker run'.
     # If so, set the prompt to something like "dev_container~"
     initContent = ''
+      alias ls='LC_COLLATE=C ls --color=auto --group-directories-first'
+      alias ll='LC_COLLATE=C ls -lah --color=auto --group-directories-first'
+      alias ..='cd ..'
+      alias ...='cd ../../'
+      alias nano='nvim'
       alias vi='nvim'
-      # Disable theme prompt handling
-      unset -f prompt_garyblessington_setup 2>/dev/null
+      alias fuck='pkill -9'
+      alias ':q'=exit
 
-      # Custom prompt for devcontainer
+      bindkey '^n' autosuggest-accept
+
+      ENABLE_CORRECTION="false"
+      unsetopt correct_all
+      unsetopt correct
+
+      # Prompt
+      unset -f prompt_garyblessington_setup 2>/dev/null
       PROMPT='%F{cyan}devcontainer%f %B%F{green}%~%f%b '
       RPROMPT=""
     '';
