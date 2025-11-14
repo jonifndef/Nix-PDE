@@ -29,8 +29,6 @@ RUN (getent group 1000 || groupadd -g 1000 ubuntu) && \
     mkdir -p /home/ubuntu && \
     chown -R 1000:1000 /home/ubuntu || true
 
-#RUN wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz && tar -xzf nvim-linux-x86_64.tar.gz -C /opt/
-
 RUN mkdir /nix && chown ubuntu:ubuntu /nix
 
 WORKDIR /home/ubuntu
@@ -40,13 +38,7 @@ ENV USER=ubuntu
 RUN mkdir -p $HOME/.config && chown ubuntu:ubuntu $HOME/.config
 
 RUN git clone https://github.com/jonifndef/.dotfiles
-    #cd .dotfiles/nvim/.config && \
-    #stow -t ~/.config/nvim nvim
-    #cd ../../ && \
-    #stow zsh && \
-    #stow tmux
 
 RUN curl -L https://nixos.org/nix/install | sh
 
-#ENV PATH="/home/ubuntu/.nix-profile/bin:/opt/nvim-linux-x86_64/bin:${PATH}"
 ENV PATH="/home/ubuntu/.nix-profile/bin:${PATH}"
