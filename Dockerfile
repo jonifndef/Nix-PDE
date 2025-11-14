@@ -34,11 +34,22 @@ RUN mkdir /nix && chown ubuntu:ubuntu /nix
 WORKDIR /home/ubuntu
 USER ubuntu
 ENV USER=ubuntu
+ENV HOME=/home/ubuntu
 
-RUN mkdir -p $HOME/.config && chown ubuntu:ubuntu $HOME/.config
+RUN mkdir -p $HOME/.config && chown -R ubuntu:ubuntu $HOME/.config
+
+COPY .config/home-manager/flake.nix /home/ubuntu/.config/home-manager/flake.nix
+COPY .config/home-manager/home.nix /home/ubuntu/.config/home-manager/home.nix
+COPY .config/nix /home/ubuntu/.config/nix
+
+USER root
+RUN chown -R ubuntu:ubuntu $HOME/.config
+USER ubuntu
 
 RUN git clone https://github.com/jonifndef/.dotfiles
 
 RUN curl -L https://nixos.org/nix/install | sh
 
 ENV PATH="/home/ubuntu/.nix-profile/bin:${PATH}"
+
+RUN nix run home-manager/master -- switch --flake .config/home-manager#ubuntu
