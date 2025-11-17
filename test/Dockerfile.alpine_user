@@ -1,0 +1,5 @@
+FROM alpine
+
+RUN usermod -aG user
+
+WORKDIR /home/user
