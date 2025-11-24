@@ -1,3 +1,4 @@
 FROM archlinux
 
-RUN usermod -aG dev
+RUN groupadd -g 1000 dev
+RUN useradd -m -u 1000 -g 1000 -s /bin/bash dev

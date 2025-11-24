@@ -24,24 +24,29 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
     apt-get install --no-install-recommends -y nodejs && \
     npm install -g npm@latest
 
-RUN set -eux \
-	NEW_USER="dev"; \
-	if usermod -v > /dev/null 2>&1; then \
-		# We have useradd, we are probably in debian/arch-land
-		if id 1000 > /dev/null 2>&1; then
-			OLD_USER="$(getent passwd 1000 | cut -d: -f1)"; \
-			if [ "${OLD_USER}" != "${NEW_USER}" ]; then \
-				usermod -l "${NEW_USER}" "${OLD_USER}"; \
-				groupmod -n dev "$oldname" 2>/dev/null || true; \
-	else \
+#RUN set -eux \
+#	NEW_USER="dev"; \
+#	if usermod -v > /dev/null 2>&1; then \
+#		# We have useradd, we are probably in debian/arch-land
+#		if id 1000 > /dev/null 2>&1; then \
+#			OLD_USER="$(getent passwd 1000 | cut -d: -f1)"; \
+#			if [ "${OLD_USER}" != "${NEW_USER}" ]; then \
+#				usermod -l "${NEW_USER}" "${OLD_USER}"; \
+#				groupmod -n "${NEW_USER}" "${OLD_USER}" 2>/dev/null || true; \
+#                OLD_HOME=$(getent passwd "${NEW_USER}" | cut -d: -f6); \
+#                if [ -d "${OLD_HOME}" ] && [ "${OLD_HOME}" != "/home/${NEW_USER}" ]; then \
+#                    mv "${OLD_HOME}" "/home/${NEW_USER}"; \
+#                fi; \
+#                usermod -d "/home/${NEW_USER}" "${NEW_USER}"
+#	else \
+#
+#	fi \
 
-	fi \
 
-
-RUN (getent group 1000 || groupadd -g 1000 ubuntu) && \
-    (getent passwd 1000 || useradd -m -u 1000 -g 1000 -s /bin/bash ubuntu || true) && \
-    mkdir -p /home/ubuntu && \
-    chown -R 1000:1000 /home/ubuntu || true
+#RUN (getent group 1000 || groupadd -g 1000 ubuntu) && \
+#    (getent passwd 1000 || useradd -m -u 1000 -g 1000 -s /bin/bash ubuntu || true) && \
+#    mkdir -p /home/ubuntu && \
+#    chown -R 1000:1000 /home/ubuntu || true
 
 RUN mkdir /nix && chown ubuntu:ubuntu /nix
 

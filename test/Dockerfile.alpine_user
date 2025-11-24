@@ -1,5 +1,6 @@
 FROM alpine
 
-RUN usermod -aG user
+RUN addgroup -g 1000 user
+RUN adduser -D -u 1000 -G user user
 
 WORKDIR /home/user
