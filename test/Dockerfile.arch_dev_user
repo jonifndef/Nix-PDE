@@ -1,4 +1,4 @@
 FROM archlinux
 
-RUN groupadd -g 1000 dev
-RUN useradd -m -u 1000 -g 1000 -s /bin/bash dev
+RUN groupadd -g 1000 arch_dev
+RUN useradd -m -u 1000 -g 1000 -s /bin/bash arch_dev

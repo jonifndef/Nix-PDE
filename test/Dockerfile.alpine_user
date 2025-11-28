@@ -1,6 +1,6 @@
 FROM alpine
 
-RUN addgroup -g 1000 user
-RUN adduser -D -u 1000 -G user user
+RUN addgroup -g 1000 alpine_user
+RUN adduser -D -u 1000 -G user alpine_user
 
-WORKDIR /home/user
+WORKDIR /home/alpine_user

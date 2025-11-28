@@ -1,0 +1,4 @@
+FROM ubuntu 24.04
+
+RUN groupadd -g 1000 ubuntu_24_user
+RUN useradd -m -u 1000 -g 1000 -s /bin/bash ubuntu_24_user
