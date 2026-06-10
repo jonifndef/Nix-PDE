@@ -58,7 +58,8 @@ ENV HOME=/home/ubuntu
 RUN mkdir -p $HOME/.config && chown -R ubuntu:ubuntu $HOME/.config
 
 COPY .config/home-manager/flake.nix /home/ubuntu/.config/home-manager/flake.nix
-COPY .config/home-manager/home.nix /home/ubuntu/.config/home-manager/home.nix
+COPY .config/home-manager/common.nix /home/ubuntu/.config/home-manager/common.nix
+COPY .config/home-manager/headless.nix /home/ubuntu/.config/home-manager/headless.nix
 COPY .config/nix /home/ubuntu/.config/nix
 
 USER root
@@ -71,4 +72,4 @@ RUN curl -L https://nixos.org/nix/install | sh
 
 ENV PATH="/home/ubuntu/.nix-profile/bin:${PATH}"
 
-RUN nix run home-manager/master -- switch --flake .config/home-manager#ubuntu
+RUN nix run home-manager/master -- switch --flake .config/home-manager#ubuntu-desktop
